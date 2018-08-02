@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>我的网站</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <style>
+    .navbar {
+       box-shadow: 8px 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+     }
+    .text {
+        text-shadow:3px 3px 5px #000000;
+     }
+  </style>
+</head>
+<body background="/static/mysite/bgimg.jpg">
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" href="" style="cursor:pointer;pointer-events: none;">个人网站首页</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'index'%}">我的博客</a>
+      </li>
+        <!--<li class="nav-item dropdown">-->
+          <!--<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">-->
+            <!--喵喵喵-->
+          <!--</a>-->
+          <!--<div class="dropdown-menu bg-primary">-->
+            <!--<a class="dropdown-item" href="#">词云图</a>-->
+            <!--<a class="dropdown-item" href="#">音频剪切</a>-->
+          <!--</div>-->
+        <!--</li>-->
+    </ul>
+  </div>
+</nav>
+
+<div style="position: absolute;left:50%;top:50%;transform:translate(-50%,-50%);">
+  <h1 class="text-primary text">Stay Hungry, Stay Foolish</h1>
+</div>
+
+</body>
+</html>

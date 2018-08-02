@@ -1,0 +1,27 @@
+<div class="container-fluid" style="margin-top:2em;">
+<br>
+  <div class="row">
+	  <div class="col-md-6 offset-md-3">
+	  <h4 class="text-muted">{{art.title}}</h4>
+		 <p>
+			 <i class="fa fa-tag" style="font-size:18px"></i>：
+			 <a href="{% url 'article_with_type' art.blogtype.blog_type %}"><span class="badge badge-pill badge-primary">{{ art.blogtype.blog_type }}</span></a>&nbsp;
+			 <i class="fa fa-clock-o" style="font-size:20px"></i>：{{ art.date|date:'Y-m-d'}}&nbsp;&nbsp;
+			 <i class="fa fa-eye" style="font-size:20px"></i>：{{ art.read_num }}
+		 </p>
+         {{ art.content|safe }}
+		  <p></p>
+		  {% if previous_blog %}
+		  	<p><i class="fa fa-hand-o-left" style="font-size:20px"></i>：<a href="{% url 'detail' previous_blog.id %}">{{ previous_blog.title }}</a></p>
+		  {% else %}
+		  	<p><i class="fa fa-hand-o-left" style="font-size:20px"></i>：已是第一篇</p>
+		  {% endif %}
+
+		  {% if next_blog %}
+		  	<p><i class="fa fa-hand-o-right" style="font-size:20px"></i>：<a href="{% url 'detail' next_blog.id %}">{{ next_blog.title }}</a></p>
+		  {% else %}
+		  	<p><i class="fa fa-hand-o-right" style="font-size:20px"></i>：已是最后一篇</p>
+		  {% endif %}
+	  </div>
+  </div>
+</div>
