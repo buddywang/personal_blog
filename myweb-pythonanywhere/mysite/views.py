@@ -1,12 +1,12 @@
 from django.shortcuts import render,get_list_or_404,get_object_or_404
-from .models import Article,BlogType,ReadNum
+from .models import Article,BlogType
 from django.http import HttpResponseRedirect,HttpResponse
 from .forms import SearchForm
 from django.db.models import Count
 from django.core.paginator import Paginator
+from read_statistics.utils import read_statistics_once_read
 
-# Create your views here.
-#公共
+#公共代码提取
 def get_common_paginator(request,art_all):
     context = {}
     paginator = Paginator(art_all, 6)  # 每页10篇文章
@@ -52,17 +52,8 @@ def index_handler(request):
 #文章详情处理
 def detail_handler(request,id):
     article = get_object_or_404(Article,id=id)
-    #阅读计数
-    if not request.COOKIES.get('blog_%s_readed' % id ):
-        if ReadNum.objects.filter(blog=article).count():
-            #存在记录
-            readnum = ReadNum.objects.get(blog=article)
-        else:
-            #不存在记录
-            readnum = ReadNum(blog=article)
-        readnum.read_num += 1
-        readnum.save()
-
+    #获得cookie的key
+    read_cookie_key = read_statistics_once_read(request,article)
     previous_blog = Article.objects.filter(id__gt=id).last()
     next_blog = Article.objects.filter(id__lt=id).first()
     form = SearchForm()
@@ -72,7 +63,7 @@ def detail_handler(request,id):
     context['previous_blog'] = previous_blog
     context['next_blog'] = next_blog
     response = render(request,'detail.html', context)
-    response.set_cookie('blog_%s_readed' % id ,'true')
+    response.set_cookie(read_cookie_key,'true')
     return response
 
 #搜索功能

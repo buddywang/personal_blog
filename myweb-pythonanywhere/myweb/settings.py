@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'mysite.apps.MysiteConfig',
     'ckeditor',
     'ckeditor_uploader',
+    'mysite.apps.MysiteConfig',
+    'read_statistics.apps.ReadStatisticsConfig',
 ]
 
 MIDDLEWARE = [
