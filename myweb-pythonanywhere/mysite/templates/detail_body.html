@@ -6,7 +6,7 @@
 		 <p>
 			 <i class="fa fa-tag" style="font-size:18px"></i>：
 			 <a href="{% url 'article_with_type' art.blogtype.blog_type %}"><span class="badge badge-pill badge-primary">{{ art.blogtype.blog_type }}</span></a>&nbsp;
-			 <i class="fa fa-clock-o" style="font-size:20px"></i>：{{ art.date|date:'Y-m-d'}}&nbsp;&nbsp;
+			 <i class="fa fa-clock-o" style="font-size:20px"></i>：{{ art.date|date:'Y-m-d'}}&nbsp;
 			 <i class="fa fa-eye" style="font-size:20px"></i>：{{ art.read_num }}
 		 </p>
          {{ art.content|safe }}
@@ -20,8 +20,40 @@
 		  {% if next_blog %}
 		  	<p><i class="fa fa-hand-o-right" style="font-size:20px"></i>：<a href="{% url 'detail' next_blog.id %}">{{ next_blog.title }}</a></p>
 		  {% else %}
-		  	<p><i class="fa fa-hand-o-right" style="font-size:20px"></i>：已是最后一篇</p>
+		  	<p><i class="fa fa-hand-o-right" style="font-size:20px"></i>：已是最后一篇</p>>
 		  {% endif %}
+		  <hr>
+	  </div>
+	  <div class="col-md-6 offset-md-3">
+		  <h5>发表评论</h5>
+		  <div style="border-style:inset;padding:1em;border-radius:20px;border-width:2px;">
+			  {% if user.is_authenticated %}
+				  <form action="{% url 'update_comment' %}" method="POST">
+					  {% csrf_token %}
+					  <div class="form-group">
+						  <label for="comment_text"><h5>已登录，{{ user.username }}，欢迎评论</h5></label>
+						 <textarea name="text" id="comment_text" rows="4" class="form-control" required></textarea>
+					  </div>
+						<input type="hidden" name="object_id" value="{{ art.pk }}">
+						<input type="hidden" name="content_type" value="article">
+						<input type="submit" value="评论" class="btn btn-primary">
+				  </form>
+			  {% else %}
+				  登录后才可评论哦~
+			  		<a href="{% url 'login' %}?from={{ request.get_full_path }}" class="btn btn-primary">登录</a> <span>or</span>
+			  		<a href="{% url 'register' %}?from={{ request.get_full_path }}" class="btn btn-success">注册</a>
+			  {% endif %}
+		  </div>
+		  <hr>
+		  <h5>评论列表:</h5>
+		  <div style="border-style:outset;padding:1em;border-radius:20px;border-width:2px;">
+			  {% for comment in comment_lists %}
+			  <p>{{ comment.user.username }}({{ comment.comment_time|date:'Y-m-d H:m:s' }})：{{ comment.text }}</p>
+			  {% empty %}
+			  暂无评论
+			  {% endfor %}
+		  </div>
 	  </div>
   </div>
+
 </div>

@@ -19,7 +19,7 @@
              <form class="form-inline" action="{% url 'search' %}" method="post">
                  {% csrf_token %}
                  {{ form }}
-                 <input class="btn btn-success" type="submit" value="搜索" />
+                 <button type="submit" class="btn btn-success"><i class="fa fa-search" style="font-size:22px;"></i></button>
              </form>
           </li>
          </ul>

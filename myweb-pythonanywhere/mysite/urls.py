@@ -7,5 +7,7 @@ urlpatterns=[
     path('index/search/',views.Search, name='search'),
     path('article/<int:id>', views.detail_handler, name='detail'),
     path('article/<str:Blogtype>', views.article_with_type, name='article_with_type'),
-    path('article/date/<int:year>/<int:month>', views.article_with_date, name='article_with_date')
+    path('article/date/<int:year>/<int:month>', views.article_with_date, name='article_with_date'),
+    path('login', views.login, name='login'),
+    path('register', views.register, name='register'),
 ]

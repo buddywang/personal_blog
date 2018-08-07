@@ -1,10 +1,17 @@
-from django.shortcuts import render,get_list_or_404,get_object_or_404
-from .models import Article,BlogType
-from django.http import HttpResponseRedirect,HttpResponse
-from .forms import SearchForm
-from django.db.models import Count
+from django.shortcuts import render,get_list_or_404,get_object_or_404,redirect,reverse
+from django.contrib import auth
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect,HttpResponse
+from django.contrib.contenttypes.models import ContentType
+
+from .models import Article,BlogType
+from django.db.models import Count
+from comment.models import Comment
+from django.contrib.auth.models import User
+from .forms import SearchForm
+from myweb.forms import LoginForm,RegisterForm
 from read_statistics.utils import read_statistics_once_read
+
 
 #公共代码提取
 def get_common_paginator(request,art_all):
@@ -57,11 +64,17 @@ def detail_handler(request,id):
     previous_blog = Article.objects.filter(id__gt=id).last()
     next_blog = Article.objects.filter(id__lt=id).first()
     form = SearchForm()
+    #获取评论
+    blog_content_type = ContentType.objects.get_for_model(article)
+    comment_lists = Comment.objects.filter(content_type=blog_content_type,object_id=article.pk)
+
     context = {}
     context['art'] = article
     context['form'] = form
     context['previous_blog'] = previous_blog
     context['next_blog'] = next_blog
+    context['user'] = request.user
+    context['comment_lists'] = comment_lists
     response = render(request,'detail.html', context)
     response.set_cookie(read_cookie_key,'true')
     return response
@@ -112,3 +125,40 @@ def article_with_date(request, year, month):
 #网站首页处理
 def home_handler(request):
     return render(request,'home.html')
+
+#处理用户登录
+def login(request):
+    context = {}
+    if request.method == 'POST':
+        loginform = LoginForm(request.POST)
+        if loginform.is_valid():
+            user = loginform.cleaned_data['user']
+            auth.login(request, user)
+            return redirect(request.GET.get('from', reversed('home')))
+    else:
+        loginform = LoginForm()
+        context['back_url'] = request.GET.get('from', reversed('home'))
+    context['loginform'] = loginform
+    return render(request, 'login.html', context)
+
+#处理用户注册
+def register(request):
+    context = {}
+    if request.method == 'POST':
+        registerform = RegisterForm(request.POST)
+        if registerform.is_valid():
+            username = registerform.cleaned_data['username']
+            password = registerform.cleaned_data['password']
+            email = registerform.cleaned_data['email']
+            #创建用户
+            user = User.objects.create_user(username,email,password)
+            user.save()
+            #登录用户
+            user = auth.authenticate(username=username,password=password)
+            auth.login(request, user)
+            return redirect(request.GET.get('from', reversed('home')))
+    else:
+        registerform = RegisterForm()
+        context['back_url'] = request.GET.get('from', reversed('home'))
+    context['registerform'] = registerform
+    return render(request, 'register.html', context)

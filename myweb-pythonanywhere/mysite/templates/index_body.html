@@ -65,8 +65,8 @@
             <i class="fa fa-tag" style="font-size:18px"></i>：
             <a href="{% url 'article_with_type' article.blogtype.blog_type %}">
               <span class="badge badge-pill badge-primary">{{ article.blogtype.blog_type }}</span>
-            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <i class="fa fa-clock-o" style="font-size:20px"></i>：{{article.date|date:'Y-m-d'}}&nbsp;&nbsp;&nbsp;
+            </a>&nbsp;
+            <i class="fa fa-clock-o" style="font-size:20px"></i>：{{article.date|date:'Y-m-d'}}&nbsp;
             <i class="fa fa-eye" style="font-size:20px"></i>：{{ article.read_num }}
           </p>
 

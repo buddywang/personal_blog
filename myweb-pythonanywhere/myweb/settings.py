@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ng)j2%hs$u^+1+7o49oi5@s5i4o7jo20mp3v%jm135#p5%i^+='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'mysite.apps.MysiteConfig',
     'read_statistics.apps.ReadStatisticsConfig',
+    'comment',
 ]
 
 MIDDLEWARE = [
@@ -120,19 +121,22 @@ USE_L10N = True
 
 USE_TZ = False
 
-SITE_ID = 2
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join( BASE_DIR, 'static')
-
+#STATIC_ROOT = os.path.join( BASE_DIR, 'static')
+#静态文件寻址
+STATICFILES_DIRS = [
+os.path.join( BASE_DIR, 'static'),
+]
 
 #上传文件保存的路径media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#配置ckeditor
+#配置ckeditor上传文件的路径，相对/media/下
 CKEDITOR_UPLOAD_PATH = 'upload/'
 
 

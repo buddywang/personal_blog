@@ -22,8 +22,9 @@ from django.conf import settings
 urlpatterns = [
     path('',views.home_handler, name='home'),
     path('admin/', admin.site.urls),
-    path('myweb/', include('mysite.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('myweb/', include('mysite.urls')),
+    path('comment/', include('comment.urls')),
 ]
 #配置上传文件的路径
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

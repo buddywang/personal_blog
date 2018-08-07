@@ -14,7 +14,7 @@ class ReadNum(models.Model):
         verbose_name_plural = '文章计数'
         verbose_name = '计数'
     def __str__(self):
-        return  self.read_num
+        return  str(self.read_num)
 
 #通用计数抽象类
 class ReadNumExpandMethod():
