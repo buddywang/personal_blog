@@ -89,15 +89,13 @@ def Search(request):
         if form.is_valid():
             searchkey=form.cleaned_data['search_key']
     else:
-        form = SearchForm()
-    if request.GET.get('search_key'):
-        searchkey = str(request.GET.get('search_key'))
+        form = SearchForm(search_key=request.GET.get('search_key','None'))
 
     art_all = Article.objects.filter(title__icontains=searchkey)
     context = context = get_common_paginator(request,art_all)
     context['result_title'] = searchkey+' 搜索结果'
     context['form'] = form
-    context['searchkey'] = searchkey
+    context['searchkey'] = request.GET.get('search_key','None')
     context['issearchpage'] = 1
     return render(request, 'index.html', context)
 

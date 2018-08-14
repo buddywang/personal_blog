@@ -1,47 +1,63 @@
 <div class="container-fluid" style="margin-top:2em;">
   <br>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-  	  <div class="card">
-        <img class="card-img-top" src="/static/mysite/introduce.jpg" alt="Card image" style="width:100%">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="/static/mysite/introduce.jpg" alt="Card image" style="width:100%">
+          <div class="card-body">
+            <h4 class="card-title"><i class="fa fa-address-book" style="font-size:24px"></i>：Sam</h4>
+            <p class="card-text">一个热爱生活，热爱学习随心所欲的程序猿!</p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">联系博主</button>
+            <div class="modal fade" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <!-- 模态框主体 -->
+                  <div class="modal-body">
+                    <img src="/static/mysite/WeChat.png" style="width:100%">
+                  </div>
+                  <!-- 模态框底部 -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+        </div>
+        <br>
+  <div id="accordion">
+     <div class="card">
+      <div class="card-header">
+        <a class="card-link" href="{% url 'index' %}">
+          全部文章
+        </a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+        文章归类
+      </a>
+      </div>
+      <div id="collapseTwo" class="collapse" data-parent="#accordion">
         <div class="card-body">
-          <h4 class="card-title"><i class="fa fa-address-book" style="font-size:24px"></i>：Sam</h4>
-          <p class="card-text">一个热爱生活，热爱学习随心所欲的程序猿!</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">联系博主</button>
-          <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- 模态框主体 -->
-        <div class="modal-body">
-          <img src="/static/mysite/WeChat.png" style="width:100%">
-        </div>
-        <!-- 模态框底部 -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
-        </div>
-
-      </div>
-      </div>
-      </div>
-        </div>
-      </div>
-      <br>
-
-      {# 文章归类 #}
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">
-          文章归类：
-          </h5>
           <ul>
-            {% for art_type in art_types %}
-              <a href="{% url 'article_with_type' art_type.blog_type %}"><li>{{ art_type.blog_type }}({{ art_type.blog_count }})</li></a>
-            {% endfor %}
+              {% for art_type in art_types %}
+                <a href="{% url 'article_with_type' art_type.blog_type %}"><li>{{ art_type.blog_type }}({{ art_type.blog_count }})</li></a>
+              {% endfor %}
           </ul>
-          <h5 class="card-title">
-          日期归类：
-          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+          日期归类
+        </a>
+      </div>
+      <div id="collapseThree" class="collapse" data-parent="#accordion">
+        <div class="card-body">
           <ul>
             {% for date_type,date_count in date_lists_dict.items %}
               <a href="{% url 'article_with_date' date_type.year date_type.month %}"><li>{{ date_type|date:'Y年m月' }}({{ date_count }})</li></a>
@@ -50,74 +66,79 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-8">
-      <div class="card bg-primary text-whihe">
-        <div class="card-body">
-          {{ result_title }}： 共有{{ result_num }}篇文章，当前第{{ art_lists.number }}页，共{{ art_lists.paginator.num_pages }}页
+  </div>
+</div>
+
+      <div class="col-sm-8">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <strong class="text-dark">{{ result_title }}：</strong> 共有{{ result_num }}篇文章，当前第{{ art_lists.number }}页，共{{ art_lists.paginator.num_pages }}页
+          </div>
         </div>
-      </div>
-      <br>
-      {% for article in art_lists.object_list %}
-      <div class="card bg-light" >
-        <div class="card-body">
-          <h4 class="card-title">{{article.title}}</h4>
-          <p>
-            <i class="fa fa-tag" style="font-size:18px"></i>：
-            <a href="{% url 'article_with_type' article.blogtype.blog_type %}">
-              <span class="badge badge-pill badge-primary">{{ article.blogtype.blog_type }}</span>
-            </a>&nbsp;
-            <i class="fa fa-clock-o" style="font-size:20px"></i>：{{article.date|date:'Y-m-d'}}&nbsp;
-            <i class="fa fa-eye" style="font-size:20px"></i>：{{ article.read_num }}
-          </p>
+        <br>
+        {% for article in art_lists.object_list %}
+        <div class="card" >
+          <div class="card-header text-info">
+            <h4 class="card-head">{{ article.title|safe }}</h4>
+          </div>
+          <div class="card-body">
+            <p>
+              <i class="fa fa-tag" style="font-size:18px"></i>：
+              <a href="{% url 'article_with_type' article.blogtype.blog_type %}">
+                <span class="badge badge-pill badge-primary">{{ article.blogtype.blog_type }}</span>
+              </a>&nbsp;
+              <i class="fa fa-clock-o" style="font-size:20px"></i>：{{article.date|date:'Y-m-d'}}&nbsp;
+              <i class="fa fa-eye" style="font-size:20px"></i>：{{ article.read_num }}
+            </p>
 
-          <p>
-            <a href="{% url 'detail' article.id %}">详情</a>
-          </p>
+            <p>
+              <a class="btn btn-primary btn-sm" href="{% url 'detail' article.id %}">详情</a>
+            </p>
+          </div>
         </div>
-      </div>
-      <hr>
-      {% empty %}
-      无结果
-      {% endfor %}
-      <div class="pagination">
-        <ul class="pagination">
-          {# 根据是否搜索页来决定href属性 #}
-          {# 上一页 #}
-          {% if art_lists.has_previous and issearchpage == 0 %}
-            <li class="page-item"><a class="page-link" href="?page={{art_lists.number|add:-1}}"><i class="fa fa-hand-o-left" style="font-size:18px"></i></a></li>
-          {% elif art_lists.has_previous and issearchpage == 1 %}
-            <li class="page-item"><a class="page-link" href="?search_key={{ searchkey }}&page={{art_lists.number|add:-1}}"><i class="fa fa-hand-o-left" style="font-size:18px"></i></a></li>
-          {% else %}
-            <li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-hand-o-left" style="font-size:18px"></i></a></li>
-          {% endif %}
+        <hr>
+        {% empty %}
+        无结果
+        {% endfor %}
+        <div class="pagination">
+          <ul class="pagination">
+            {# 根据是否搜索页来决定href属性 #}
+            {# 上一页 #}
+            {% if art_lists.has_previous and issearchpage == 0 %}
+              <li class="page-item"><a class="page-link" href="?page={{art_lists.number|add:-1}}"><i class="fa fa-hand-o-left" style="font-size:18px"></i></a></li>
+            {% elif art_lists.has_previous and issearchpage == 1 %}
+              <li class="page-item"><a class="page-link" href="?search_key={{ searchkey }}&page={{art_lists.number|add:-1}}"><i class="fa fa-hand-o-left" style="font-size:18px"></i></a></li>
+            {% else %}
+              <li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-hand-o-left" style="font-size:18px"></i></a></li>
+            {% endif %}
 
-          {# 全部页码 #}
-          {% for i in page_list %}
-          {% if i == art_lists.number and issearchpage == 0 %}
-            <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-          {% elif i == art_lists.number and issearchpage == 1 %}
-            <li class="page-item active"><a class="page-link" href="?search_key={{ searchkey }}&page={{ i }}">{{ i }}</a></li>
-          {% elif i == '...' %}
-            <li class="page-item disabled"><a class="page-link" href="">{{ i }}</a></li>
-          {% elif issearchpage == 0 %}
-            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-          {% else %}
-            <li class="page-item"><a class="page-link" href="?search_key={{ searchkey }}&page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-          {% endfor %}
+            {# 全部页码 #}
+            {% for i in page_list %}
+            {% if i == art_lists.number and issearchpage == 0 %}
+              <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% elif i == art_lists.number and issearchpage == 1 %}
+              <li class="page-item active"><a class="page-link" href="?search_key={{ searchkey }}&page={{ i }}">{{ i }}</a></li>
+            {% elif i == '...' %}
+              <li class="page-item disabled"><a class="page-link" href="">{{ i }}</a></li>
+            {% elif issearchpage == 0 %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?search_key={{ searchkey }}&page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
 
-          {# 下一页 #}
-          {% if art_lists.has_next and issearchpage == 0 %}
-            <li class="page-item"><a class="page-link" href="?page={{art_lists.number|add:1}}"><i class="fa fa-hand-o-right" style="font-size:18px"></i></a></li>
-          {% elif art_lists.has_next and issearchpage == 1 %}
-            <li class="page-item"><a class="page-link" href="?search_key={{ searchkey }}&page={{art_lists.number|add:-1}}"><i class="fa fa-hand-o-right" style="font-size:18px"></i></a></li>
-          {% else %}
-          <li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-hand-o-right" style="font-size:18px"></i></a></li>
-          {% endif %}
+            {# 下一页 #}
+            {% if art_lists.has_next and issearchpage == 0 %}
+              <li class="page-item"><a class="page-link" href="?page={{art_lists.number|add:1}}"><i class="fa fa-hand-o-right" style="font-size:18px"></i></a></li>
+            {% elif art_lists.has_next and issearchpage == 1 %}
+              <li class="page-item"><a class="page-link" href="?search_key={{ searchkey }}&page={{art_lists.number|add:-1}}"><i class="fa fa-hand-o-right" style="font-size:18px"></i></a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-hand-o-right" style="font-size:18px"></i></a></li>
+            {% endif %}
 
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</div>
   </div>

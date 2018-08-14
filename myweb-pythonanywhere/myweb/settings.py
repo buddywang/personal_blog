@@ -83,10 +83,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'your_database_name',
-        'HOST': 'your_host_name',
-        'PORT': '3306',   #port_num
-        'USER': 'user_name',
-        'PASSWORD': 'password',
+        'HOST': 'your_host',
+        'PORT': 'your_port',
+        'USER': 'your_username',  #数据库的账号
+        'PASSWORD': 'your_password',  #数据库的密码
     }
 }
 
