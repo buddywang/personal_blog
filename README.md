@@ -1,8 +1,9 @@
 # personal_blog
-### ¸öÈË²©¿ÍÏµÍ³
-- ±¾²©¿ÍÏµÍ³Ö÷Òª²ÎÕÕÑîÊËº½ÀÏÊ¦µÄDjango2ÊÓÆµ½Ì³Ì£¬ÓÉDjango2ÅäºÏbootstrap4¹¹½¨£¬¶ÔÓ¦python°æ±¾Îª3.6£¬django°æ±¾Îª2.0.5£¬Êı¾İ¿âÓÃµÄÊÇMySQL5.7
-### ÔËĞĞ»·¾³
-- ³ıÁËpythonÓëDjangoÍâ£¬ËùĞèµÚÈı·½¿âÔÚrequirment.txtÎÄ¼şÖĞ£¬ÔÚÄãµÄÖ÷»ú°²×°¼´¿É£¨pip install -r requirment.txt)
-### ´úÂë¸´ÖÆĞëÖª
-- Ö»ĞèĞŞ¸Äsettings.pyÀïÊı¾İ¿âµÄÅäÖÃ£¬»¹ÒªÔÚÄãµÄÖ÷»úÉÏÕÒµ½manage.pyÎÄ¼şËùÔÚÄ¿Â¼£¬ÔËĞĞÃüÁî
- pytho manage.py makemigrations ºÍ python manage.py migrate´´½¨Êı¾İ¿â£¬ÔÙĞŞ¸ÄHTMLÄ£°åÀïµÄ¸öÈËĞÅÏ¢¼´¿É²¿ÊğÊ¹ÓÃ
+### ä¸ªäººåšå®¢ç³»ç»Ÿ
+- æœ¬åšå®¢ç³»ç»Ÿä¸»è¦å‚ç…§æ¨ä»•èˆªè€å¸ˆçš„Django2è§†é¢‘æ•™ç¨‹ï¼Œç”±Django2é…åˆbootstrap4æ„å»ºï¼Œå¯¹åº”pythonç‰ˆæœ¬ä¸º3.6ï¼Œdjangoç‰ˆæœ¬ä¸º2.0.5ï¼Œæ•°æ®åº“ç”¨çš„æ˜¯MySQL5.7
+- Demo: [wgh.pythonanywhere.com]
+### è¿è¡Œç¯å¢ƒ
+- é™¤äº†pythonä¸Djangoå¤–ï¼Œæ‰€éœ€ç¬¬ä¸‰æ–¹åº“åœ¨requirment.txtæ–‡ä»¶ä¸­ï¼Œåœ¨ä½ çš„ä¸»æœºå®‰è£…å³å¯ï¼ˆpip install -r requirment.txt)
+### ä½¿ç”¨
+- åªéœ€ä¿®æ”¹settings.pyé‡Œæ•°æ®åº“çš„é…ç½®ï¼Œè¿˜è¦åœ¨ä½ çš„ä¸»æœºä¸Šæ‰¾åˆ°manage.pyæ–‡ä»¶æ‰€åœ¨ç›®å½•ï¼Œè¿è¡Œå‘½ä»¤
+ pytho manage.py makemigrations å’Œ python manage.py migrateåˆ›å»ºæ•°æ®åº“ï¼Œå†ä¿®æ”¹HTMLæ¨¡æ¿é‡Œçš„ä¸ªäººä¿¡æ¯å³å¯éƒ¨ç½²ä½¿ç”¨
